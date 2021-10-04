@@ -1,7 +1,9 @@
 export const App = () => {
+  const name = 'Hong Kyung Won'
+
   return (
     <div>
-      Hello React! - {process.env.NODE_ENV} {process.env.name}
+      Hello {name}! - {process.env.NODE_ENV} {process.env.name}
     </div>
   )
 }
