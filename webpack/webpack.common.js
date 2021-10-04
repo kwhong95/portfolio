@@ -6,6 +6,14 @@ module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
+    alias: {
+      '@hooks': path.resolve(__dirname, 'src/hooks/'),
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@layouts': path.resolve(__dirname, 'src/layouts/'),
+      '@pages': path.resolve(__dirname, 'src/pages/'),
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@styles': path.resolve(__dirname, 'src/styles/'),
+    },
   },
   module: {
     rules: [
@@ -42,7 +50,7 @@ module.exports = {
       template: path.resolve(__dirname, '..', './src/index.html'),
     }),
     new CopyPlugin({
-      patterns: [{ from: 'source', to: 'dest' }],
+      patterns: [{ from: 'src', to: 'dest' }],
     }),
   ],
 }

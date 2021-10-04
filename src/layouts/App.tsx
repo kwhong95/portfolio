@@ -3,7 +3,7 @@ export const App = () => {
 
   return (
     <div>
-      Hello {name}! - {process.env.NODE_ENV} {process.env.name}
+      Hello {name}! - {process.env.NODE_ENV} {process.env.name}!!
     </div>
   )
 }

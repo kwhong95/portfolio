@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
-import { App } from './App'
 import { Global } from '@emotion/react'
-import { GlobalStyle } from './styles/global-style'
+import { GlobalStyle } from '@styles/global-style'
+import { App } from '@layouts/App'
 
 ReactDOM.render(
   <>
