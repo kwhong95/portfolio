@@ -10,6 +10,7 @@ export const GlobalStyle = css`
     overflow-x: hidden;
     letter-spacing: -.05em;
     background: #101010;
+    color: #fff;
   }
 
   p {
