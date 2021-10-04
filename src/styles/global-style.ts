@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/react'
 
 export const GlobalStyle = css`
   html {
@@ -8,7 +8,7 @@ export const GlobalStyle = css`
 
   body {
     overflow-x: hidden;
-    letter-spacing: -.05em;
+    letter-spacing: -0.05em;
     background: #101010;
     color: #fff;
   }
@@ -16,4 +16,4 @@ export const GlobalStyle = css`
   p {
     line-height: 1.6;
   }
-`;
+`
