@@ -24,7 +24,7 @@ export const NavLinks = styled('div')<NavLinksTypes>`
 
   & > a {
     font-size: ${(props) => props.type === 'local' && '.8em'};
-    margin-right: ${(props) => (props.type === 'global' ? '' : 'auto')};
+    margin-right: ${(props) => (props.type === 'global' ? '0' : 'auto')};
   }
 
   & > button {
