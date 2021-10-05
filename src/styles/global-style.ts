@@ -22,4 +22,9 @@ export const GlobalStyle = css`
   p {
     line-height: 1.6;
   }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
 `
