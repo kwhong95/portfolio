@@ -5,7 +5,7 @@ interface IRoute {
   name: string
   path: string
   exact: boolean
-  component: FC
+  component: FC | null | any
 }
 
 export const routes: IRoute[] = [
@@ -14,5 +14,23 @@ export const routes: IRoute[] = [
     path: '/',
     exact: true,
     component: MainPage,
+  },
+  {
+    name: 'About',
+    path: '/about',
+    exact: true,
+    component: null,
+  },
+  {
+    name: 'Project',
+    path: '/project',
+    exact: true,
+    component: null,
+  },
+  {
+    name: 'Contact',
+    path: '/contact',
+    exact: true,
+    component: null,
   },
 ]
