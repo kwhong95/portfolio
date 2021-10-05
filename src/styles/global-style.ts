@@ -27,4 +27,15 @@ export const GlobalStyle = css`
     color: #fff;
     text-decoration: none;
   }
+
+  button {
+    border: none;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+
+    :hover {
+      color: red;
+    }
+  }
 `

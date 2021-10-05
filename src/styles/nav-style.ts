@@ -19,15 +19,20 @@ export const NavLinks = styled('div')<NavLinksTypes>`
   max-width: 1000px;
   height: 100%;
   margin: 0 auto;
+
   justify-content: ${(props) => props.type === 'global' && 'space-between'};
 
   & > a {
     font-size: ${(props) => props.type === 'local' && '.8em'};
+    margin-right: ${(props) => (props.type === 'global' ? '' : 'auto')};
+  }
+
+  & > button {
+    margin-left: 2em;
   }
 
   p {
     font-size: 1.2rem;
-    margin-right: auto;
     font-weight: bold;
   }
 `

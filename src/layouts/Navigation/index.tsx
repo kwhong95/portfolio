@@ -19,6 +19,8 @@ export const Navigation: React.FC = () => {
           <NavLink to="/">
             <p>KWHong</p>
           </NavLink>
+          <button>ENG</button>
+          <button>KOR</button>
         </NavLinks>
       </LocalNav>
     </>
