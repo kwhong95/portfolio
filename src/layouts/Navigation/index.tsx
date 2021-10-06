@@ -1,3 +1,4 @@
+import { LangSelector } from '@components/LangSelector'
 import { routes } from '@layouts/Routes'
 import { GlobalNav, LocalNav, NavLinks } from '@styles/nav-style'
 import { NavLink } from 'react-router-dom'
@@ -19,8 +20,7 @@ export const Navigation: React.FC = () => {
           <NavLink to="/">
             <p>KWHong</p>
           </NavLink>
-          <button>ENG</button>
-          <button>KOR</button>
+          <LangSelector />
         </NavLinks>
       </LocalNav>
     </>
