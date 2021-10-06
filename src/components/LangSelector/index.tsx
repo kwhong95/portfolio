@@ -1,5 +1,6 @@
 import { LangContext } from '@contexts/Lang'
 import { useContext } from 'react'
+import { LangSelectorWrap } from '@styles/lang-selector-style'
 
 export const LangSelector: React.FC = () => {
   const {
@@ -11,9 +12,9 @@ export const LangSelector: React.FC = () => {
   }
 
   return (
-    <ul>
+    <LangSelectorWrap>
       <button onClick={() => selectLanguageHandler('ENG')}>ENG</button>
       <button onClick={() => selectLanguageHandler('KOR')}>KOR</button>
-    </ul>
+    </LangSelectorWrap>
   )
 }

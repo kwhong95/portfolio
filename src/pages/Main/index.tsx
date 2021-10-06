@@ -2,8 +2,6 @@ import { Container } from '@styles/page-container'
 import { useTranslate } from '@hooks/useTranslate'
 
 export const MainPage: React.FC = () => {
-  console.log(useTranslate.name)
-
   return (
     <Container>
       <h1>{useTranslate('mainpage')}</h1>
