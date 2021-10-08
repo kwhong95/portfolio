@@ -2,11 +2,13 @@ import styled from '@emotion/styled'
 
 export const GlobalNav = styled('nav')`
   height: 44px;
+  padding: 0 1rem;
 `
 
 export const LocalNav = styled('nav')`
   height: 52px;
   border-bottom: 1px solid #333;
+  padding: 0 1rem;
 `
 
 interface NavLinksTypes {
