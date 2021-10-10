@@ -23,4 +23,24 @@ export const ScrollSection = styled('section')`
       line-height: 1.2;
     }
   }
+
+  .sticky-elem {
+    position: fixed;
+    /* display: none; */
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  & > .description {
+    font-size: 1.2rem;
+    color: #888;
+
+    strong {
+      float: left;
+      font-size: 3rem;
+      margin-right: 0.2rem;
+      color: #fff;
+    }
+  }
 `
