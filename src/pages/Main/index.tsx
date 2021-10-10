@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Container } from '@styles/page-container'
 import { useTranslate } from '@hooks/useTranslate'
 import { ScrollSection } from '@styles/scroll-section-style'
@@ -7,6 +7,7 @@ import { sectionInfo, sectionInfoType } from './section-info'
 export const MainPage: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null)
   const SectionInfo: sectionInfoType[] = sectionInfo
+  const [yoffset, setYoffset] = useState<number>(0)
 
   const setLayout = () => {
     for (let i = 0; i < SectionInfo.length; i++) {
@@ -22,9 +23,23 @@ export const MainPage: React.FC = () => {
     }
   }
 
-  setLayout()
+  const scrollLoop = () => {
+    console.log(yoffset)
+  }
 
   console.log(SectionInfo)
+
+  useEffect(() => {
+    setLayout()
+    window.addEventListener('resize', setLayout)
+
+    window.addEventListener('scroll', () => {
+      setYoffset(window.pageYOffset)
+      scrollLoop()
+    })
+
+    return () => window.removeEventListener('resize', setLayout)
+  })
 
   return (
     <Container ref={mainRef}>
