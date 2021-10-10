@@ -40,8 +40,6 @@ export const MainPage: React.FC = () => {
       if (currentSection === 0) return
       setCurrentSection((v) => v - 1)
     }
-
-    console.log(currentSection)
   }
 
   useEffect(() => {
@@ -56,8 +54,8 @@ export const MainPage: React.FC = () => {
   })
 
   return (
-    <Container ref={mainRef} onLoad={setLayout}>
-      <ScrollSection className="scroll-secton-0">
+    <Container ref={mainRef} onLoad={setLayout} currentSection={currentSection}>
+      <ScrollSection className="scroll-section-0">
         <h1>{useTranslate('mainTitle')}</h1>
         <div className="sticky-elem main-message">
           <p>
