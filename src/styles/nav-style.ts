@@ -1,11 +1,19 @@
 import styled from '@emotion/styled'
 
 export const GlobalNav = styled('nav')`
+  position: absolute;
   height: 44px;
   padding: 0 1rem;
+  width: 100%;
+  top: 0;
+  left: 0;
 `
 
 export const LocalNav = styled('nav')`
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
   height: 52px;
   border-bottom: 1px solid #333;
   padding: 0 1rem;

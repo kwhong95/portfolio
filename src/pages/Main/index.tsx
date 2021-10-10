@@ -3,11 +3,14 @@ import { Container } from '@styles/page-container'
 import { useTranslate } from '@hooks/useTranslate'
 import { ScrollSection } from '@styles/scroll-section-style'
 import { sectionInfo, sectionInfoType } from './section-info'
+import { useScroll } from '@hooks/useScroll'
 
 export const MainPage: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null)
+  const { scrollY } = useScroll()
   const SectionInfo: sectionInfoType[] = sectionInfo
-  const [yoffset, setYoffset] = useState<number>(0)
+  const [currentSection, setCurrentSection] = useState<number>(0)
+  let prevScrollHeight = 0
 
   const setLayout = () => {
     for (let i = 0; i < SectionInfo.length; i++) {
@@ -23,27 +26,38 @@ export const MainPage: React.FC = () => {
     }
   }
 
-  const scrollLoop = () => {
-    console.log(yoffset)
-  }
+  const onScrollLoop = () => {
+    prevScrollHeight = 0
+    for (let i = 0; i < currentSection; i++) {
+      prevScrollHeight += sectionInfo[i].scrollHeight
+    }
 
-  console.log(SectionInfo)
+    if (scrollY > prevScrollHeight + sectionInfo[currentSection].scrollHeight) {
+      setCurrentSection((v) => v + 1)
+    }
+
+    if (scrollY < prevScrollHeight) {
+      if (currentSection === 0) return
+      setCurrentSection((v) => v - 1)
+    }
+
+    console.log(currentSection)
+  }
 
   useEffect(() => {
     setLayout()
     window.addEventListener('resize', setLayout)
+    window.addEventListener('scroll', onScrollLoop)
 
-    window.addEventListener('scroll', () => {
-      setYoffset(window.pageYOffset)
-      scrollLoop()
-    })
-
-    return () => window.removeEventListener('resize', setLayout)
+    return () => {
+      window.removeEventListener('resize', setLayout)
+      window.removeEventListener('scroll', onScrollLoop)
+    }
   })
 
   return (
-    <Container ref={mainRef}>
-      <ScrollSection>
+    <Container ref={mainRef} onLoad={setLayout}>
+      <ScrollSection className="scroll-secton-0">
         <h1>{useTranslate('mainTitle')}</h1>
         <div className="sticky-elem main-message">
           <p>

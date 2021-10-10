@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 
 export const ScrollSection = styled('section')`
   padding-top: 50vh;
+  border: 1px solid red;
 
   & > h1 {
     font-size: 4rem;
@@ -26,7 +27,7 @@ export const ScrollSection = styled('section')`
 
   .sticky-elem {
     position: fixed;
-    /* display: none; */
+    display: none;
     top: 0;
     left: 0;
     width: 100%;

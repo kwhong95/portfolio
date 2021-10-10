@@ -21,7 +21,7 @@ export const sectionInfo: sectionInfoType[] = [
   {
     id: 2,
     type: 'normal',
-    heightNum: 5,
+    heightNum: 3,
     scrollHeight: 0,
     objs: {},
   },
