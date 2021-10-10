@@ -1,25 +1,33 @@
-// import { useState, useEffect } from 'react'
+import { useRef } from 'react'
 import { Container } from '@styles/page-container'
 import { useTranslate } from '@hooks/useTranslate'
 import { ScrollSection } from '@styles/scroll-section-style'
 import { sectionInfo, sectionInfoType } from './section-info'
 
 export const MainPage: React.FC = () => {
+  const mainRef = useRef<HTMLDivElement>(null)
   const SectionInfo: sectionInfoType[] = sectionInfo
 
   const setLayout = () => {
     for (let i = 0; i < SectionInfo.length; i++) {
       SectionInfo[i].scrollHeight =
         sectionInfo[i].heightNum * window.innerHeight
+      if (mainRef.current) {
+        const container = mainRef.current
+        SectionInfo[i].objs.container = container.childNodes[i]
+        SectionInfo[
+          i
+        ].objs.container.style.height = `${SectionInfo[i].scrollHeight}px`
+      }
     }
-
-    console.log(SectionInfo)
   }
 
   setLayout()
 
+  console.log(SectionInfo)
+
   return (
-    <Container>
+    <Container ref={mainRef}>
       <ScrollSection>
         <h1>{useTranslate('mainTitle')}</h1>
         <div className="sticky-elem main-message">

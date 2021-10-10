@@ -1,8 +1,13 @@
+export type objsType = {
+  container: any
+}
+
 export type sectionInfoType = {
   id: number
   type: 'sticky' | 'normal'
   heightNum: number
   scrollHeight: number
+  objs: objsType | any
 }
 
 export const sectionInfo: sectionInfoType[] = [
@@ -11,11 +16,13 @@ export const sectionInfo: sectionInfoType[] = [
     type: 'sticky',
     heightNum: 5,
     scrollHeight: 0,
+    objs: {},
   },
   {
     id: 2,
     type: 'normal',
-    heightNum: 1,
+    heightNum: 5,
     scrollHeight: 0,
+    objs: {},
   },
 ]
