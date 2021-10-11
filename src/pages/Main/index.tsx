@@ -24,6 +24,15 @@ export const MainPage: React.FC = () => {
         ].objs.container.style.height = `${SectionInfo[i].scrollHeight}px`
       }
     }
+
+    let totalScrollHeight = 0
+    for (let i = 0; i < SectionInfo.length; i++) {
+      totalScrollHeight += SectionInfo[i].scrollHeight
+      if (totalScrollHeight >= window.pageYOffset) {
+        setCurrentSection(i)
+        break
+      }
+    }
   }
 
   const onScrollLoop = () => {
@@ -43,11 +52,12 @@ export const MainPage: React.FC = () => {
   }
 
   useEffect(() => {
-    setLayout()
+    window.addEventListener('load', setLayout)
     window.addEventListener('resize', setLayout)
     window.addEventListener('scroll', onScrollLoop)
 
     return () => {
+      window.removeEventListener('load', setLayout)
       window.removeEventListener('resize', setLayout)
       window.removeEventListener('scroll', onScrollLoop)
     }

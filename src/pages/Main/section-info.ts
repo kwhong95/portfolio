@@ -7,7 +7,7 @@ export type sectionInfoType = {
   type: 'sticky' | 'normal'
   heightNum: number
   scrollHeight: number
-  objs: objsType | any
+  objs: objsType
 }
 
 export const sectionInfo: sectionInfoType[] = [
@@ -16,13 +16,17 @@ export const sectionInfo: sectionInfoType[] = [
     type: 'sticky',
     heightNum: 5,
     scrollHeight: 0,
-    objs: {},
+    objs: {
+      container: null,
+    },
   },
   {
     id: 2,
     type: 'normal',
     heightNum: 3,
     scrollHeight: 0,
-    objs: {},
+    objs: {
+      container: null,
+    },
   },
 ]
