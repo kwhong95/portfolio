@@ -51,6 +51,27 @@ export const MainPage: React.FC = () => {
       if (currentSection === 0) return
       setCurrentSection((v) => v - 1)
     }
+
+    playAnimation()
+  }
+
+  // const calcValues = (values: number, currentYOffset: number) => {
+  //   console.log(values, currentYOffset)
+  // }
+
+  const playAnimation = () => {
+    // const objs = SectionInfo[currentSection].objs
+    // const values = SectionInfo[currentSection].values
+    const currentYOffset = scrollY - prevScrollHeight
+
+    console.log(currentSection, currentYOffset)
+
+    switch (currentSection) {
+      case 0:
+        break
+      case 1:
+        break
+    }
   }
 
   useEffect(() => {
