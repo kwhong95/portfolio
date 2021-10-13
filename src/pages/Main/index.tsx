@@ -6,7 +6,7 @@ import { sectionInfo, sectionInfoType } from './section-info'
 import { useScroll } from '@hooks/useScroll'
 
 export const MainPage: React.FC = () => {
-  const mainRef = useRef<HTMLDivElement>(null)
+  const containerSelectorRef = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll()
   const SectionInfo: sectionInfoType[] = sectionInfo
   const [currentSection, setCurrentSection] = useState<number>(0)
@@ -16,12 +16,12 @@ export const MainPage: React.FC = () => {
     for (let i = 0; i < SectionInfo.length; i++) {
       SectionInfo[i].scrollHeight =
         sectionInfo[i].heightNum * window.innerHeight
-      if (mainRef.current) {
-        const container = mainRef.current
-        SectionInfo[i].objs.container = container.childNodes[i]
-        SectionInfo[
-          i
-        ].objs.container.style.height = `${SectionInfo[i].scrollHeight}px`
+      if (containerSelectorRef.current) {
+        const containerNode = containerSelectorRef.current
+        let sectionObjs = SectionInfo[i].objs.container
+        sectionObjs = containerNode.childNodes[i]
+        sectionObjs.style.height = `${SectionInfo[i].scrollHeight}px`
+        SectionInfo[i].objs.messages = containerNode.childNodes[i].childNodes
       }
     }
 
@@ -33,9 +33,11 @@ export const MainPage: React.FC = () => {
         break
       }
     }
+
+    console.log(SectionInfo)
   }
 
-  const onScrollLoop = () => {
+  const scrollLoop = () => {
     prevScrollHeight = 0
     for (let i = 0; i < currentSection; i++) {
       prevScrollHeight += sectionInfo[i].scrollHeight
@@ -54,17 +56,21 @@ export const MainPage: React.FC = () => {
   useEffect(() => {
     window.addEventListener('load', setLayout)
     window.addEventListener('resize', setLayout)
-    window.addEventListener('scroll', onScrollLoop)
+    window.addEventListener('scroll', scrollLoop)
 
     return () => {
       window.removeEventListener('load', setLayout)
       window.removeEventListener('resize', setLayout)
-      window.removeEventListener('scroll', onScrollLoop)
+      window.removeEventListener('scroll', scrollLoop)
     }
   })
 
   return (
-    <Container ref={mainRef} onLoad={setLayout} currentSection={currentSection}>
+    <Container
+      ref={containerSelectorRef}
+      onLoad={setLayout}
+      currentSection={currentSection}
+    >
       <ScrollSection className="scroll-section-0">
         <h1>{useTranslate('mainTitle')}</h1>
         <div className="sticky-elem main-message">
