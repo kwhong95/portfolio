@@ -10,6 +10,7 @@ export const MainPage: React.FC = () => {
   const { scrollY } = useScroll()
   const SectionInfo: sectionInfoType[] = sectionInfo
   const [currentSection, setCurrentSection] = useState<number>(0)
+  const [enterNewSection, setEnterNewSection] = useState<boolean>(false)
   let prevScrollHeight = 0
 
   const setLayout = () => {
@@ -36,36 +37,64 @@ export const MainPage: React.FC = () => {
   }
 
   const scrollLoop = () => {
-    prevScrollHeight = 0
+    setEnterNewSection(false)
     for (let i = 0; i < currentSection; i++) {
       prevScrollHeight += sectionInfo[i].scrollHeight
     }
 
     if (scrollY > prevScrollHeight + sectionInfo[currentSection].scrollHeight) {
+      setEnterNewSection(true)
       setCurrentSection((v) => v + 1)
     }
 
     if (scrollY < prevScrollHeight) {
+      setEnterNewSection(true)
       if (currentSection === 0) return
       setCurrentSection((v) => v - 1)
     }
 
+    if (enterNewSection) return
+
     playAnimation()
   }
 
-  const calcValues = (values: Array<number>, currentYOffset: number) => {
+  const calcValues = (values: any, currentYOffset: number) => {
     let rv = 0
+    const scrollHeight = SectionInfo[currentSection].scrollHeight
     const scrollRatio: string | number =
       currentYOffset / sectionInfo[currentSection].scrollHeight
-    rv = scrollRatio * (values[1] - values[0] + values[0])
 
-    return rv
+    if (values.length === 3) {
+      const partScrollStart = values[2].start * scrollHeight
+      const partScrollEnd = values[2].end * scrollHeight
+      const partScrollHeight = partScrollEnd - partScrollStart
+
+      if (
+        currentYOffset >= partScrollStart &&
+        currentYOffset <= partScrollEnd
+      ) {
+        rv =
+          ((currentYOffset - partScrollHeight) / partScrollHeight) *
+            (values[1] - values[0]) +
+          values[0]
+      } else if (currentYOffset < partScrollStart) {
+        rv = values[0]
+      } else if (currentYOffset > partScrollEnd) {
+        rv = values[1]
+      } else {
+        rv = scrollRatio * (values[1] - values[0]) + values[0]
+      }
+
+      return rv
+    }
   }
 
   const playAnimation = () => {
     const objs = SectionInfo[currentSection].objs
     const values = SectionInfo[currentSection].values
     const currentYOffset = scrollY - prevScrollHeight
+    const scrollHeight = SectionInfo[currentSection].scrollHeight
+    const scrollRatio = (scrollY - prevScrollHeight) / scrollHeight
 
     switch (currentSection) {
       case 0:
@@ -73,8 +102,27 @@ export const MainPage: React.FC = () => {
           values.message1_opacity_in,
           currentYOffset
         )
-        objs.messages[1].style.opacity = message1_opacity_in
-        console.log(message1_opacity_in)
+        const message1_opacity_out = calcValues(
+          values.message1_opacity_out,
+          currentYOffset
+        )
+        const message1_translateY_in = calcValues(
+          values.message1_translateY_in,
+          currentYOffset
+        )
+        const message1_translateY_out = calcValues(
+          values.message1_translateY_out,
+          currentYOffset
+        )
+
+        if (scrollRatio <= 0.22) {
+          objs.messages[1].style.opacity = message1_opacity_in
+          objs.messages[1].style.transform = `translateY(${message1_translateY_in}%)`
+        } else {
+          objs.messages[1].style.opacity = message1_opacity_out
+          objs.messages[1].style.transform = `translateY(${message1_translateY_out}%)`
+        }
+
         break
       case 1:
         break

@@ -16,6 +16,7 @@ export const ScrollSection = styled('section')`
     height: 3em;
     font-size: 2.5rem;
     opacity: 0;
+    top: 35vh;
 
     p {
       font-weight: bold;
@@ -27,7 +28,6 @@ export const ScrollSection = styled('section')`
   .sticky-elem {
     position: fixed;
     display: none;
-    top: 0;
     left: 0;
     width: 100%;
   }
