@@ -15,7 +15,7 @@ export const ScrollSection = styled('section')`
     margin: 5px 0;
     height: 3em;
     font-size: 2.5rem;
-    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
 
     p {
       font-weight: bold;

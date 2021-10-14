@@ -33,8 +33,6 @@ export const MainPage: React.FC = () => {
         break
       }
     }
-
-    console.log(SectionInfo)
   }
 
   const scrollLoop = () => {
@@ -55,19 +53,28 @@ export const MainPage: React.FC = () => {
     playAnimation()
   }
 
-  // const calcValues = (values: number, currentYOffset: number) => {
-  //   console.log(values, currentYOffset)
-  // }
+  const calcValues = (values: Array<number>, currentYOffset: number) => {
+    let rv = 0
+    const scrollRatio: string | number =
+      currentYOffset / sectionInfo[currentSection].scrollHeight
+    rv = scrollRatio * (values[1] - values[0] + values[0])
+
+    return rv
+  }
 
   const playAnimation = () => {
-    // const objs = SectionInfo[currentSection].objs
-    // const values = SectionInfo[currentSection].values
+    const objs = SectionInfo[currentSection].objs
+    const values = SectionInfo[currentSection].values
     const currentYOffset = scrollY - prevScrollHeight
-
-    console.log(currentSection, currentYOffset)
 
     switch (currentSection) {
       case 0:
+        const message1_opacity_in = calcValues(
+          values.message1_opacity_in,
+          currentYOffset
+        )
+        objs.messages[1].style.opacity = message1_opacity_in
+        console.log(message1_opacity_in)
         break
       case 1:
         break
