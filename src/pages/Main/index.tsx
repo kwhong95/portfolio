@@ -4,6 +4,7 @@ import { useTranslate } from '@hooks/useTranslate'
 import { ScrollSection } from '@styles/scroll-section-style'
 import { sectionInfo, sectionInfoType } from './section-info'
 import { useScroll } from '@hooks/useScroll'
+import { Video } from '@components/Video'
 
 export const MainPage: React.FC = () => {
   const containerSelectorRef = useRef<HTMLDivElement>(null)
@@ -15,14 +16,21 @@ export const MainPage: React.FC = () => {
 
   const setLayout = () => {
     for (let i = 0; i < SectionInfo.length; i++) {
-      SectionInfo[i].scrollHeight =
-        sectionInfo[i].heightNum * window.innerHeight
       if (containerSelectorRef.current) {
         const containerNode = containerSelectorRef.current
         let sectionObjs = SectionInfo[i].objs.container
-        sectionObjs = containerNode.childNodes[i]
+
+        if (SectionInfo[i].type === 'sticky') {
+          SectionInfo[i].scrollHeight =
+            sectionInfo[i].heightNum * window.innerHeight
+          sectionObjs = containerNode.childNodes[i]
+          SectionInfo[i].objs.messages = containerNode.childNodes[i].childNodes
+        } else if (SectionInfo[i].type === 'normal') {
+          SectionInfo[i].scrollHeight =
+            SectionInfo[i].objs.container.offsetHeight
+        }
+
         sectionObjs.style.height = `${SectionInfo[i].scrollHeight}px`
-        SectionInfo[i].objs.messages = containerNode.childNodes[i].childNodes
       }
     }
 
@@ -34,8 +42,6 @@ export const MainPage: React.FC = () => {
         break
       }
     }
-
-    console.log(SectionInfo)
   }
 
   const scrollLoop = () => {
@@ -232,6 +238,7 @@ export const MainPage: React.FC = () => {
             {useTranslate('mainMessage8')}
           </p>
         </div>
+        <Video />
       </ScrollSection>
       <ScrollSection>
         <p className="description">
