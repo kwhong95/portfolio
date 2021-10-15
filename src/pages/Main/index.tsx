@@ -34,6 +34,8 @@ export const MainPage: React.FC = () => {
         break
       }
     }
+
+    console.log(SectionInfo)
   }
 
   const scrollLoop = () => {
@@ -61,8 +63,7 @@ export const MainPage: React.FC = () => {
   const calcValues = (values: any, currentYOffset: number) => {
     let rv = 0
     const scrollHeight = SectionInfo[currentSection].scrollHeight
-    const scrollRatio: string | number =
-      currentYOffset / sectionInfo[currentSection].scrollHeight
+    const scrollRatio = currentYOffset / scrollHeight
 
     if (values.length === 3) {
       const partScrollStart = values[2].start * scrollHeight
@@ -74,7 +75,7 @@ export const MainPage: React.FC = () => {
         currentYOffset <= partScrollEnd
       ) {
         rv =
-          ((currentYOffset - partScrollHeight) / partScrollHeight) *
+          ((currentYOffset - partScrollStart) / partScrollHeight) *
             (values[1] - values[0]) +
           values[0]
       } else if (currentYOffset < partScrollStart) {
@@ -94,35 +95,89 @@ export const MainPage: React.FC = () => {
     const values = SectionInfo[currentSection].values
     const currentYOffset = scrollY - prevScrollHeight
     const scrollHeight = SectionInfo[currentSection].scrollHeight
-    const scrollRatio = (scrollY - prevScrollHeight) / scrollHeight
+    const scrollRatio = currentYOffset / scrollHeight
 
     switch (currentSection) {
       case 0:
-        const message1_opacity_in = calcValues(
-          values.message1_opacity_in,
-          currentYOffset
-        )
-        const message1_opacity_out = calcValues(
-          values.message1_opacity_out,
-          currentYOffset
-        )
-        const message1_translateY_in = calcValues(
-          values.message1_translateY_in,
-          currentYOffset
-        )
-        const message1_translateY_out = calcValues(
-          values.message1_translateY_out,
-          currentYOffset
-        )
-
         if (scrollRatio <= 0.22) {
-          objs.messages[1].style.opacity = message1_opacity_in
-          objs.messages[1].style.transform = `translateY(${message1_translateY_in}%)`
+          objs.messages[1].style.opacity = calcValues(
+            values.message1_opacity_in,
+            currentYOffset
+          )
+          objs.messages[1].style.transform = `translateY(${calcValues(
+            values.message1_translateY_in,
+            currentYOffset
+          )}%)`
         } else {
-          objs.messages[1].style.opacity = message1_opacity_out
-          objs.messages[1].style.transform = `translateY(${message1_translateY_out}%)`
+          objs.messages[1].style.opacity = calcValues(
+            values.message1_opacity_out,
+            currentYOffset
+          )
+          objs.messages[1].style.transform = `translateY(${calcValues(
+            values.message1_translateY_out,
+            currentYOffset
+          )}%)`
         }
 
+        if (scrollRatio <= 0.42) {
+          objs.messages[2].style.opacity = calcValues(
+            values.message2_opacity_in,
+            currentYOffset
+          )
+          objs.messages[2].style.transform = `translateY(${calcValues(
+            values.message2_translateY_in,
+            currentYOffset
+          )}%)`
+        } else {
+          objs.messages[2].style.opacity = calcValues(
+            values.message2_opacity_out,
+            currentYOffset
+          )
+          objs.messages[2].style.transform = `translateY(${calcValues(
+            values.message2_translateY_out,
+            currentYOffset
+          )}%)`
+        }
+
+        if (scrollRatio <= 0.62) {
+          objs.messages[3].style.opacity = calcValues(
+            values.message3_opacity_in,
+            currentYOffset
+          )
+          objs.messages[3].style.transform = `translateY(${calcValues(
+            values.message3_translateY_in,
+            currentYOffset
+          )}%)`
+        } else {
+          objs.messages[3].style.opacity = calcValues(
+            values.message3_opacity_out,
+            currentYOffset
+          )
+          objs.messages[3].style.transform = `translateY(${calcValues(
+            values.message3_translateY_out,
+            currentYOffset
+          )}%)`
+        }
+
+        if (scrollRatio <= 0.82) {
+          objs.messages[4].style.opacity = calcValues(
+            values.message4_opacity_in,
+            currentYOffset
+          )
+          objs.messages[4].style.transform = `translateY(${calcValues(
+            values.message4_translateY_in,
+            currentYOffset
+          )}%)`
+        } else {
+          objs.messages[4].style.opacity = calcValues(
+            values.message4_opacity_out,
+            currentYOffset
+          )
+          objs.messages[4].style.transform = `translateY(${calcValues(
+            values.message4_translateY_out,
+            currentYOffset
+          )}%)`
+        }
         break
       case 1:
         break
