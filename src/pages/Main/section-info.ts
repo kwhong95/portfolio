@@ -3,6 +3,7 @@ export type objsType = {
   messages?: NodeList | null | any
   canvas?: HTMLCanvasElement | null
   videoImages?: any
+  context?: any
 }
 
 export type sectionInfoType = {
@@ -25,6 +26,7 @@ export const sectionInfo: sectionInfoType[] = [
       messages: null,
       canvas: null,
       videoImages: [],
+      context: null,
     },
     values: {
       imageCount: 394,

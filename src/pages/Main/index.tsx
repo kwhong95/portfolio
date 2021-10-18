@@ -6,33 +6,42 @@ import { sectionInfo, sectionInfoType } from './section-info'
 import { useScroll } from '@hooks/useScroll'
 
 export const MainPage: React.FC = () => {
-  const containerSelectorRef = useRef<HTMLDivElement>(null)
+  const containerSelectorRef = useRef<HTMLDivElement | null>(null)
   const { scrollY } = useScroll()
   const SectionInfo: sectionInfoType[] = sectionInfo
   const [currentSection, setCurrentSection] = useState<number>(0)
   const [enterNewSection, setEnterNewSection] = useState<boolean>(false)
   let prevScrollHeight = 0
 
+  const setCanvasImages = () => {
+    let imgElems
+    for (let i = 1; i < SectionInfo[0].values.videoImageCount; i++) {
+      imgElems = new Image()
+      imgElems.src = `@assets/video/image_${i}.jpg`
+      SectionInfo[0].objs.videoImages.push(imgElems)
+    }
+  }
+
   const setLayout = () => {
     for (let i = 0; i < SectionInfo.length; i++) {
       if (containerSelectorRef.current) {
         const containerNode = containerSelectorRef.current
-        let canvas: any = SectionInfo[i].objs.canvas
-        let sectionObjs = SectionInfo[i].objs.container
-        sectionObjs = containerNode.childNodes[i]
+        SectionInfo[i].objs.container = containerNode.childNodes[i]
         SectionInfo[i].scrollHeight =
           sectionInfo[i].heightNum * window.innerHeight
         if (SectionInfo[i].type === 'sticky') {
+          SectionInfo[i].objs.canvas = containerNode.childNodes[i]
+            .childNodes[0] as HTMLCanvasElement | null | undefined
           SectionInfo[i].objs.messages = containerNode.childNodes[i].childNodes
-          canvas = containerNode.childNodes[i].childNodes[0]
-          const ctx = canvas?.getContext('2d')
-          console.log(ctx)
+          SectionInfo[i].objs.context =
+            SectionInfo[i].objs.canvas?.getContext('2d')
         } else if (SectionInfo[i].type === 'normal') {
-          // SectionInfo[i].scrollHeight =
-          //   SectionInfo[i].objs.container.offsetHeight
+          SectionInfo[i].scrollHeight =
+            SectionInfo[i].objs.container.offsetHeight
         }
-
-        sectionObjs.style.height = `${SectionInfo[i].scrollHeight}px`
+        SectionInfo[
+          i
+        ].objs.container.style.height = `${SectionInfo[i].scrollHeight}px`
       }
     }
 
@@ -200,6 +209,7 @@ export const MainPage: React.FC = () => {
     window.addEventListener('load', setLayout)
     window.addEventListener('resize', setLayout)
     window.addEventListener('scroll', scrollLoop)
+    setCanvasImages()
     console.log(SectionInfo)
     return () => {
       window.removeEventListener('load', setLayout)
