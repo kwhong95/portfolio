@@ -4,7 +4,6 @@ import { useTranslate } from '@hooks/useTranslate'
 import { ScrollSection } from '@styles/scroll-section-style'
 import { sectionInfo, sectionInfoType } from './section-info'
 import { useScroll } from '@hooks/useScroll'
-import { Video } from '@components/Video'
 
 export const MainPage: React.FC = () => {
   const containerSelectorRef = useRef<HTMLDivElement>(null)
@@ -18,16 +17,19 @@ export const MainPage: React.FC = () => {
     for (let i = 0; i < SectionInfo.length; i++) {
       if (containerSelectorRef.current) {
         const containerNode = containerSelectorRef.current
+        let canvas: any = SectionInfo[i].objs.canvas
         let sectionObjs = SectionInfo[i].objs.container
-
+        sectionObjs = containerNode.childNodes[i]
+        SectionInfo[i].scrollHeight =
+          sectionInfo[i].heightNum * window.innerHeight
         if (SectionInfo[i].type === 'sticky') {
-          SectionInfo[i].scrollHeight =
-            sectionInfo[i].heightNum * window.innerHeight
-          sectionObjs = containerNode.childNodes[i]
           SectionInfo[i].objs.messages = containerNode.childNodes[i].childNodes
+          canvas = containerNode.childNodes[i].childNodes[0]
+          const ctx = canvas?.getContext('2d')
+          console.log(ctx)
         } else if (SectionInfo[i].type === 'normal') {
-          SectionInfo[i].scrollHeight =
-            SectionInfo[i].objs.container.offsetHeight
+          // SectionInfo[i].scrollHeight =
+          //   SectionInfo[i].objs.container.offsetHeight
         }
 
         sectionObjs.style.height = `${SectionInfo[i].scrollHeight}px`
@@ -105,6 +107,10 @@ export const MainPage: React.FC = () => {
 
     switch (currentSection) {
       case 0:
+        const sequence = calcValues(values.imageSequence, currentYOffset)
+
+        console.log(sequence)
+
         if (scrollRatio <= 0.22) {
           objs.messages[1].style.opacity = calcValues(
             values.message1_opacity_in,
@@ -194,7 +200,7 @@ export const MainPage: React.FC = () => {
     window.addEventListener('load', setLayout)
     window.addEventListener('resize', setLayout)
     window.addEventListener('scroll', scrollLoop)
-
+    console.log(SectionInfo)
     return () => {
       window.removeEventListener('load', setLayout)
       window.removeEventListener('resize', setLayout)
@@ -209,6 +215,7 @@ export const MainPage: React.FC = () => {
       currentSection={currentSection}
     >
       <ScrollSection className="scroll-section-0">
+        <canvas className="sticky-elem" width="1920" height="1080" />
         <h1>{useTranslate('mainTitle')}</h1>
         <div className="sticky-elem main-message">
           <p>
@@ -238,7 +245,6 @@ export const MainPage: React.FC = () => {
             {useTranslate('mainMessage8')}
           </p>
         </div>
-        <Video />
       </ScrollSection>
       <ScrollSection>
         <p className="description">

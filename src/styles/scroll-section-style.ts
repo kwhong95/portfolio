@@ -43,4 +43,9 @@ export const ScrollSection = styled('section')`
       color: #fff;
     }
   }
+
+  canvas {
+    top: 0;
+    background: #ccc;
+  }
 `

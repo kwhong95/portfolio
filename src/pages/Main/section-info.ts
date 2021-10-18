@@ -1,6 +1,8 @@
 export type objsType = {
   container: Node | any
   messages?: NodeList | null | any
+  canvas?: HTMLCanvasElement | null
+  videoImages?: any
 }
 
 export type sectionInfoType = {
@@ -21,8 +23,12 @@ export const sectionInfo: sectionInfoType[] = [
     objs: {
       container: null,
       messages: null,
+      canvas: null,
+      videoImages: [],
     },
     values: {
+      imageCount: 394,
+      imageSequence: [0, 393],
       message1_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
       message2_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
       message3_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
