@@ -7,6 +7,7 @@ export const GlobalNav = styled('nav')`
   width: 100%;
   top: 0;
   left: 0;
+  z-index: 3;
 `
 
 export const LocalNav = styled('nav')`
@@ -17,6 +18,7 @@ export const LocalNav = styled('nav')`
   height: 52px;
   border-bottom: 1px solid #333;
   padding: 0 1rem;
+  z-index: 5;
 `
 
 interface NavLinksTypes {

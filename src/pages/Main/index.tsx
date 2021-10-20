@@ -4,6 +4,7 @@ import { useTranslate } from '@hooks/useTranslate'
 import { ScrollSection } from '@styles/scroll-section-style'
 import { sectionInfo, sectionInfoType } from './section-info'
 import { useScroll } from '@hooks/useScroll'
+// import listReactFiles from 'list-react-files'
 
 export const MainPage: React.FC = () => {
   const containerSelectorRef = useRef<HTMLDivElement | null>(null)
@@ -14,12 +15,14 @@ export const MainPage: React.FC = () => {
   let prevScrollHeight = 0
 
   const setCanvasImages = () => {
-    let imgElems
-    for (let i = 1; i < SectionInfo[0].values.videoImageCount; i++) {
-      imgElems = new Image()
-      imgElems.src = `@assets/video/image_${i}.jpg`
-      SectionInfo[0].objs.videoImages.push(imgElems)
+    const importAll = (r: any) => {
+      return r.keys().map(r)
     }
+    const allImages = importAll(
+      require.context('../../assets/video', false, /.jpg$/)
+    )
+    console.log(allImages)
+    SectionInfo[0].objs.videoImages.push(allImages)
   }
 
   const setLayout = () => {
